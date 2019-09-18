@@ -8,14 +8,34 @@
 
 <ion-content class="ion-padding">
 
-  <ion-header translucent>      
-    <ion-toolbar>
-      <ion-searchbar         
-        placeholder="Search"
-        (ionInput)="searchSong($event)"          
-      ></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
+  <form #form="ngForm" (ngSubmit)="searchSong(form,$event)" method="post">
+
+    <ion-item>
+
+      <ion-toolbar>
+        <ion-searchbar [(ngModel)]="valueSearched" name="valueSearched" placeholder="Search"></ion-searchbar>
+      </ion-toolbar>
+
+      <section>
+        <ion-button type="submit" color="success">Search</ion-button>
+      </section>
+
+    </ion-item>
+
+  </form>
+
+  <ion-list>
+    <ion-item *ngFor="let item of searchService.result">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="item.thumbnail"></ion-img>
+      </ion-thumbnail>
+      <ion-label >{{item.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+
+
+  <!-- <ion-button color="primary">Search</ion-button> -->
 
   <!-- <ion-list>
     <ion-item *ngFor="let song of searchService.result">

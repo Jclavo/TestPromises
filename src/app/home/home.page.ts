@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchServiceService } from '../search-service.service';
+import { SearchServiceService } from '../services/search-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,17 +8,19 @@ import { SearchServiceService } from '../search-service.service';
 })
 export class HomePage {
 
-  constructor(private searchService: SearchServiceService) {}
+  private valueSearched: string;
 
-  searchSong(event)
-  {
-    const valueSearched = event.target.value;
-    if (valueSearched && valueSearched.trim() != '') {
-      
-      console.log("search: ", valueSearched );
+  constructor(private searchService: SearchServiceService) { }
 
-      this.searchService.searchSong(valueSearched);
+  searchSong(form, event) {
+    console.log("search: ", form.value.valueSearched);
+    this.valueSearched = form.value.valueSearched
+    if (this.valueSearched && this.valueSearched.trim() != '') {
+
+      this.searchService.searchSong(this.valueSearched);
+      console.log('result',this.searchService.searchSong(this.valueSearched));
     }
+
   }
 
 }
